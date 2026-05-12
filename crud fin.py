@@ -90,14 +90,22 @@ awal.lihat_isi()
 
 # === TUGAS ANGGOTA 2: DATA & LOGIC SPECIALIST ===
 
+# ================================================
+# Menyimpan struktur folder ke CSV
+# ================================================
 def simpan_ke_csv(node_root, nama_file="data_folder.csv"):
-    """Menyimpan struktur folder ke CSV agar data permanen """
-    with open(nama_file, mode='w', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerow(["Nama", "Tipe", "Parent"]) # Header
-        _tulis_rekursif(node_root, writer)
-    print(f"\n[Sistem] Data berhasil disimpan ke {nama_file}")
+    try:
+        with open(nama_file, mode='w', newline='', encoding='utf-8') as f:
+            writer = csv.writer(f)
+            writer.writerow(["Nama", "Tipe", "Parent"]) # Header
+            writer.writerow([node_root.folder, node_root.tipe, "Root"])
+            _tulis_rekursif(node_root, writer)
+    except Exception as e:
+        print(f"[Error CSV] {e}")
 
+# ===================================================
+# Mencatat setiap folder dan file ke dalam baris CSV
+# ===================================================
 def _tulis_rekursif(node, writer):
     """Mencatat setiap folder dan file ke dalam baris CSV"""
     for item in node.isi:
@@ -106,16 +114,20 @@ def _tulis_rekursif(node, writer):
         if item.tipe == "Folder":
             _tulis_rekursif(item, writer)
 
+# ===================================================
+# Sorting (mengurutkan isi folder A-Z)
+# ===================================================
 def urutkan_isi(node_sekarang):
-    """Fitur Sorting: Mengurutkan isi folder A-Z [cite: 16]"""
     if node_sekarang.isi:
         node_sekarang.isi.sort(key=lambda x: x.folder.lower())
         print(f"\n[Sistem] Isi folder '{node_sekarang.folder}' berhasil diurutkan A-Z.")
     else:
         print("\n[Sistem] Folder kosong, tidak ada yang bisa diurutkan.")
 
+# ===================================================
+# Searching (mencari file/folder di seluruh sistem)
+# ===================================================
 def cari_file_folder(node_root, nama_cari):
-    """Fitur Searching: Mencari file/folder di seluruh sistem [cite: 17]"""
     hasil = []
     _cari_rekursif(node_root, nama_cari, hasil)
     
@@ -126,27 +138,16 @@ def cari_file_folder(node_root, nama_cari):
     else:
         print(f"\n[Sistem] '{nama_cari}' tidak ditemukan.")
 
+# ===================================================
+# Searching (mencari ke dalam semua sub-folder)
+# ===================================================
 def _cari_rekursif(node, nama_cari, hasil, path_sekarang=""):
-    """Mencari ke dalam semua sub-folder secara mendalam"""
-    path_baru = f"{path_sekarang}/{node.folder}"
+    path_baru = f"{path_sekarang}/{node.folder}" if path_sekarang else node.folder
     if nama_cari.lower() in node.folder.lower():
-        hasil.append(path_baru)
+        hasil.append(f"[{node.tipe}] {path_baru}")
     
     for item in node.isi:
         _cari_rekursif(item, nama_cari, hasil, path_baru)
-
-
-
-# --- UJI COBA TUGAS ANGGOTA 2 ---
-# 1. Coba urutkan
-urutkan_isi(awal)
-awal.lihat_isi()
-
-# 2. Coba simpan ke CSV 
-simpan_ke_csv(awal)
-
-# 3. Coba cari file
-cari_file_folder(awal, "foto")
 
 #TUGAS ANGGOTA 3
 
