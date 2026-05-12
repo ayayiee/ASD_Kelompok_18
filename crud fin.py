@@ -4,39 +4,79 @@ import csv
 
 class Node:
     def __init__(self, folder, tipe):
-        self.folder = folder    # Nama folder 
+        self.folder = folder    # Nama folder / file
         self.tipe = tipe        #Isinya folder atau file
         self.isi = []           #List untuk menyimpan isi folder
         self.posisi = None      #Mengetahui folder ini ada di folder mana (fitur back)
-        
-    def tambah_isi(self, node_baru): #create
+    
+    #=========================================
+    # CREATE
+    #=========================================
+    
+    def tambah_isi(self, node_baru): 
+        if self.tipe == "File":
+            print("[Error] Tidak bisa menambahkan item ke dalam File!")
+            return False
+
+        # Kondisi ketika nama boleh sama asal beda TIPE
+        for item in self.isi:
+            if item.folder.lower() == node_baru.folder.lower() and item.tipe == node_baru.tipe:
+                print(f"[Error] {node_baru.tipe} '{node_baru.folder}' sudah ada di lokasi ini!")
+                return False
+
         node_baru.posisi = self 
         self.isi.append(node_baru)
-        
-    def lihat_isi (self):            #read
-        print(f"\nIsi dari folder {self.folder}: ")
-        if not self.isi:
-            print("(Folder kosong)")
-        else:
-            for item in self.isi:
-                ikon = "[F]" if item.tipe == "Folder" else "[t]"
-                print(f"{ikon} {item.folder}")
+        return True
 
-    def ubah_nama(self, nama_lama, nama_baru): #update
+    #=========================================
+    # READ
+    #=========================================
+    
+    def lihat_isi (self, filter_tipe=None):            
+        items = self.isi
+        if filter_tipe:
+            items = [i for i in self.isi if i.tipe == filter_tipe]
+            print(f"  (Menampilkan hanya: {filter_tipe})")
+
+        if not items:
+            print("  (Folder Kosong - Gunakan menu 'Tambah' untuk mengisi folder ini)")
+        else:
+            for item in items:
+                ikon = "📁" if item.tipe == "Folder" else "📄"
+                print(f"  {ikon} {item.folder}")
+
+    #=========================================
+    # UPDATE
+    #=========================================
+    
+    def ubah_nama(self, nama_lama, nama_baru): 
         for item in self.isi:
             if item.folder.lower() == nama_lama.lower():
+                
+                # Cek apakah nama baru bentrok dengan tipe yang sama
+                for cek in self.isi:
+                    if cek.folder.lower() == nama_baru.lower() and cek.tipe == item.tipe:
+                        print(f"[Error] Nama '{nama_baru}' sudah digunakan oleh {item.tipe} lain!")
+                        return False
+                        
                 item.folder = nama_baru
-                print(f"[Sistem] Berhasil! Nama {nama_lama} telah diubah menjadi {nama_baru}.")
-                return
-        print(f"[Sistem] Gagal: {nama_lama} tidak ditemukan di folder ini.")  
+                print(f"[Sukses] {item.tipe} '{nama_lama}' telah diubah menjadi {nama_baru}.")
+                return True
+        print(f"[Error] Gagal! {nama_lama} tidak ditemukan di folder ini.")
+        return False
 
+    #=========================================
+    # DELETE
+    #=========================================
+    
     def hapus_isi(self, nama_dihapus): #delete   
         for item in self.isi:
             if item.folder.lower() == nama_dihapus.lower(): #lower membuat jadi huruf kecil agar tidak sensitif
                 self.isi.remove(item)
-                print(f"Berhasil menghapus {item.folder} !")
-                return
-        print(f"Gagal: {nama_dihapus} tidak ditemukan.")
+                print(f"Berhasil menghapus {item.tipe} '{item.folder}'! !")
+                return True
+        print(f"Gagal, {nama_dihapus} tidak ditemukan.")
+        return False
                 
 awal = Node("Laptop_saya", "Folder")
 
