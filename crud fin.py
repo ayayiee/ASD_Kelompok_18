@@ -173,7 +173,7 @@ node_sekarang = root
 stack_riwayat = []
 
 while True:
-    path_saatini = " / ".join([n.folder for n in stack_riwayat])
+    path_saatini = " / ".join([n.folder for n in stack_riwayat] + [node_sekarang.folder])
     print("\n" + "="*35)
     print(f"📂 LOKASI SAAT INI: {path_saatini}") 
     print("="*35)
@@ -181,9 +181,9 @@ while True:
     print("2. Tambah folder/file baru")
     print("3. Ubah nama")
     print("4. Hapus folder/file")
-    print("5. Buka (Folder/File)")
+    print("5. Buka (Folder)")
     print("6. Urutkan (A-Z)")
-    print("7. Cari")
+    print("7. Cari nama")
     print("8. Kembali")
     print("0. Keluar dari program")
     print("="*35)
@@ -200,17 +200,17 @@ while True:
     elif pilihan == "2":
         print("\n--- TAMBAH BARU ---")
         nama_baru = input("Masukkan nama: ").strip()
-        tipe_baru = input("Tipe (1. Folder, 2. File): ").capitalize() 
+        tipe_baru = "Folder" if input("Tipe (1. Folder, 2. File): ") == "1" else "File" 
         
-        if node_sekarang.tambah_isi(Node(nama, tipe, isi_teks)):
-            print(f"[Sukses] Berhasil menambahkan {tipe} ke '{node_sekarang.folder}'")
+        if node_sekarang.tambah_isi(Node(nama_baru, tipe_baru)):
+            print(f"[Sukses] Berhasil menambahkan {tipe_baru} ke '{node_sekarang.folder}'")
             simpan_ke_csv(root)
             
     elif pilihan == "3":
         print("\n--- UBAH NAMA ---")
         nama_lama = input("Masukkan nama yang ingin diubah: ")
         nama_baru = input("Masukkan nama baru: ")
-        if node_sekarang.ubah_nama(lama, baru):
+        if node_sekarang.ubah_nama(nama_lama, nama_baru):
             simpan_ke_csv(root)
         
     elif pilihan == "4":
@@ -229,9 +229,8 @@ while True:
                     node_sekarang = item
                     print(f"[Sistem] Berhasil masuk ke folder '{node_sekarang.folder}'")
                 else:
-                    print(f"\n--- MEMBUKA FILE: {item.folder} ---")
-                    print(f"Konten: {item.isi_file if item.isi_file else '(Kosong)'}")
-                    input("\nTekan Enter untuk menutup file...")
+                    print("Folder tidak ditemukan")
+                    input("\nTekan Enter untuk kembali ke menu...")
                 found = True; break
         if not found: print("[Error] Tidak ditemukan.")
 
@@ -244,11 +243,11 @@ while True:
          cari_file_folder(root, input("Cari nama: "))
 
     elif pilihan == "8":
-        f = input("Tampilkan hanya (1:Folder, 2:File, 3:Semua): ")
-        tipe_f = "Folder" if f=="1" else "File" if f=="2" else None
-        print("\n--- HASIL FILTER ---")
-        node_sekarang.lihat_isi(tipe_f)
-        input("\nTekan Enter untuk kembali ke menu...")
+        if stack_riwayat:
+            node_sekarang = stack_riwayat.pop()
+        else:
+            print("[Sistem] Anda sudah berada di lokasi paling awal (Root).")
+            
     elif pilihan == "0":
         simpan_ke_csv(root)
         print("Program ditutup.")
