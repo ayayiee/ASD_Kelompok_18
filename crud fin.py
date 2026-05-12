@@ -150,50 +150,108 @@ def _cari_rekursif(node, nama_cari, hasil, path_sekarang=""):
         _cari_rekursif(item, nama_cari, hasil, path_baru)
 
 #TUGAS ANGGOTA 3
+root = Node("Laptop_saya", "Folder")
+
+try:
+    nodes = {}
+    with open("data_folder.csv",mode='r', encoding='utf-8') as f:
+        reader = csv.reader(f)
+        next(reader)
+        for baris in reader:
+            nama, tipe, parent = baris
+            baru = Node(nama, tipe)
+            nodes[nama] = baru
+            if parent == "Root":
+                root = baru
+            else:
+                if parent in nodes:
+                    nodes[parent].tambah_isi(baru)
+except:
+    print("[Sistem] File CSV tidak ditemukan. Memulai dengan folder kosong.")
+
+node_sekarang = root
+stack_riwayat = []
 
 while True:
+    path_saatini = " / ".join([n.folder for n in stack_riwayat])
     print("\n" + "="*35)
-    print(f"📂 LOKASI SAAT INI: {awal.folder}") 
+    print(f"📂 LOKASI SAAT INI: {path_saatini}") 
     print("="*35)
-    print("1. Lihat isi folder (Read)")
-    print("2. Tambah folder/file baru (Create)")
-    print("3. Ubah nama (Update)")
-    print("4. Hapus folder/file (Delete)")
-    print("5. Keluar dari program")
+    print("1. Lihat isi folder")
+    print("2. Tambah folder/file baru")
+    print("3. Ubah nama")
+    print("4. Hapus folder/file")
+    print("5. Buka (Folder/File)")
+    print("6. Urutkan (A-Z)")
+    print("7. Cari")
+    print("8. Kembali")
+    print("0. Keluar dari program")
     print("="*35)
     
-    pilihan = input("Pilih menu (1-5): ")
+    pilihan = input("Pilih menu (0-8): ").strip()
     
     if pilihan == "1":
-        print("\n--- MENAMPILKAN ISI ---")
-        awal.lihat_isi()
+        f = input("Tampilkan hanya (1: Folder, 2: File, 3: Semua): ")
+        tipe_f = "Folder" if f=="1" else "File" if f=="2" else None
+        print("\n--- HASIL FILTER ---")
+        node_sekarang.lihat_isi(tipe_f)
+        input("\nTekan Enter untuk kembali ke menu...")
         
     elif pilihan == "2":
         print("\n--- TAMBAH BARU ---")
-        nama_baru = input("Masukkan nama: ")
-        tipe_baru = input("Tipe (Folder/File): ").capitalize() 
+        nama_baru = input("Masukkan nama: ").strip()
+        tipe_baru = input("Tipe (1. Folder, 2. File): ").capitalize() 
         
-        if tipe_baru in ["Folder", "File"]:
-            node_baru = Node(nama_baru, tipe_baru) 
-            awal.tambah_isi(node_baru)            
-            print(f"[Sistem] Berhasil menambahkan {tipe_baru} '{nama_baru}'!")
-        else:
-            print("[Sistem] Gagal: Tipe hanya boleh diisi 'Folder' atau 'File'.")
+        if node_sekarang.tambah_isi(Node(nama, tipe, isi_teks)):
+            print(f"[Sukses] Berhasil menambahkan {tipe} ke '{node_sekarang.folder}'")
+            simpan_ke_csv(root)
             
     elif pilihan == "3":
         print("\n--- UBAH NAMA ---")
         nama_lama = input("Masukkan nama yang ingin diubah: ")
         nama_baru = input("Masukkan nama baru: ")
-        awal.ubah_nama(nama_lama, nama_baru)
+        if node_sekarang.ubah_nama(lama, baru):
+            simpan_ke_csv(root)
         
     elif pilihan == "4":
         print("\n--- HAPUS ITEM ---")
         nama_hapus = input("Masukkan nama yang ingin dihapus: ")
-        awal.hapus_isi(nama_hapus)
+        if node_sekarang.hapus_isi(nama_hapus):
+            simpan_ke_csv(root)
         
     elif pilihan == "5":
-        print("\n[Sistem] Menutup program direktori... Sampai jumpa!")
-        break # Perintah untuk menghentikan 'while True'
-        
+        target = input("Masukkan nama folder untuk dibuka: ").strip()
+        found = False
+        for item in node_sekarang.isi:
+            if item.folder.lower() == target.lower():
+                if item.tipe == "Folder":
+                    stack_riwayat.append(node_sekarang)
+                    node_sekarang = item
+                    print(f"[Sistem] Berhasil masuk ke folder '{node_sekarang.folder}'")
+                else:
+                    print(f"\n--- MEMBUKA FILE: {item.folder} ---")
+                    print(f"Konten: {item.isi_file if item.isi_file else '(Kosong)'}")
+                    input("\nTekan Enter untuk menutup file...")
+                found = True; break
+        if not found: print("[Error] Tidak ditemukan.")
+
+    elif pilihan == "6":
+         print("\n--- URUTKAN A-Z ---")
+         urutkan_isi(node_sekarang)
+
+    elif pilihan == "7":
+         print("\n--- CARI ---")
+         cari_file_folder(root, input("Cari nama: "))
+
+    elif pilihan == "8":
+        f = input("Tampilkan hanya (1:Folder, 2:File, 3:Semua): ")
+        tipe_f = "Folder" if f=="1" else "File" if f=="2" else None
+        print("\n--- HASIL FILTER ---")
+        node_sekarang.lihat_isi(tipe_f)
+        input("\nTekan Enter untuk kembali ke menu...")
+    elif pilihan == "0":
+        simpan_ke_csv(root)
+        print("Program ditutup.")
+    
     else:
-        print("\n[Sistem] Pilihan salah! Harap ketik angka 1, 2, 3, 4, atau 5.")
+        print("\n[Sistem] Pilihan salah! Harap ketik angka 1, 2, 3, 4, 5, 6, 7, 8, atau 0.")
