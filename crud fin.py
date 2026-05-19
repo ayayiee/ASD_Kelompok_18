@@ -1,24 +1,23 @@
 import csv
 
-#membuat class node
+pink = '\033[95m'
+reset = '\033[0m'
 
+# === TUGAS ANGGOTA 1: MOUZIA SYAWALOVA ===
 class Node:
     def __init__(self, folder, tipe):
-        self.folder = folder    # Nama folder / file
-        self.tipe = tipe        #Isinya folder atau file
-        self.isi = []           #List untuk menyimpan isi folder
-        self.posisi = None      #Mengetahui folder ini ada di folder mana (fitur back)
+        self.folder = folder    
+        self.tipe = tipe        
+        self.isi = []           
+        self.posisi = None      
     
     #=========================================
     # CREATE
     #=========================================
-    
     def tambah_isi(self, node_baru): 
         if self.tipe == "File":
             print("[Error] Tidak bisa menambahkan item ke dalam File!")
             return False
-
-        # Kondisi ketika nama boleh sama asal beda TIPE
         for item in self.isi:
             if item.folder.lower() == node_baru.folder.lower() and item.tipe == node_baru.tipe:
                 print(f"[Error] {node_baru.tipe} '{node_baru.folder}' sudah ada di lokasi ini!")
@@ -31,7 +30,6 @@ class Node:
     #=========================================
     # READ
     #=========================================
-    
     def lihat_isi (self, filter_tipe=None):            
         items = self.isi
         if filter_tipe:
@@ -48,12 +46,10 @@ class Node:
     #=========================================
     # UPDATE
     #=========================================
-    
     def ubah_nama(self, nama_lama, nama_baru): 
         for item in self.isi:
             if item.folder.lower() == nama_lama.lower():
                 
-                # Cek apakah nama baru bentrok dengan tipe yang sama
                 for cek in self.isi:
                     if cek.folder.lower() == nama_baru.lower() and cek.tipe == item.tipe:
                         print(f"[Error] Nama '{nama_baru}' sudah digunakan oleh {item.tipe} lain!")
@@ -68,8 +64,7 @@ class Node:
     #=========================================
     # DELETE
     #=========================================
-    
-    def hapus_isi(self, nama_dihapus): #delete   
+    def hapus_isi(self, nama_dihapus):   
         for item in self.isi:
             if item.folder.lower() == nama_dihapus.lower(): #lower membuat jadi huruf kecil agar tidak sensitif
                 self.isi.remove(item)
@@ -77,19 +72,8 @@ class Node:
                 return True
         print(f"Gagal, {nama_dihapus} tidak ditemukan.")
         return False
-                
-awal = Node("Laptop_saya", "Folder")
-
-dokumen = Node("Tugas", "Folder")
-foto = Node("foto", "File")
-
-awal.tambah_isi(dokumen)
-awal.tambah_isi(foto)
-
-awal.lihat_isi()
-
-# === TUGAS ANGGOTA 2: DATA & LOGIC SPECIALIST ===
-
+        
+# === TUGAS ANGGOTA 2: ALYAA MARRDLATILLAH ===
 # ================================================
 # Menyimpan struktur folder ke CSV
 # ================================================
@@ -109,7 +93,6 @@ def simpan_ke_csv(node_root, nama_file="data_folder.csv"):
 def _tulis_rekursif(node, writer):
     """Mencatat setiap folder dan file ke dalam baris CSV"""
     for item in node.isi:
-        # Mencatat: Nama Item, Tipe, dan Nama Folder Induknya
         writer.writerow([item.folder, item.tipe, node.folder])
         if item.tipe == "Folder":
             _tulis_rekursif(item, writer)
@@ -149,8 +132,14 @@ def _cari_rekursif(node, nama_cari, hasil, path_sekarang=""):
     for item in node.isi:
         _cari_rekursif(item, nama_cari, hasil, path_baru)
 
-#TUGAS ANGGOTA 3
+# === TUGAS ANGGOTA 3: GABRIELLA ANGGI ===
 root = Node("Laptop_saya", "Folder")
+
+print(f"{pink}" + "="*50 + f"{reset}")
+print("Selamat Datang di Direktori Folder Laptop Saya!")
+print("Sistem siap mengelola file dan folder Anda.")
+print(f"{pink}" + "="*50 + f"{reset}")
+input("Tekan Enter untuk masuk ke program...")
 
 try:
     nodes = {}
@@ -174,9 +163,9 @@ stack_riwayat = []
 
 while True:
     path_saatini = " / ".join([n.folder for n in stack_riwayat] + [node_sekarang.folder])
-    print("\n" + "="*35)
+    print("\n" + "="*50)
     print(f"📂 LOKASI SAAT INI: {path_saatini}") 
-    print("="*35)
+    print("="*50)
     print("1. Lihat isi folder")
     print("2. Tambah folder/file baru")
     print("3. Ubah nama")
@@ -186,7 +175,7 @@ while True:
     print("7. Cari nama")
     print("8. Kembali")
     print("0. Keluar dari program")
-    print("="*35)
+    print("="*50)
     
     pilihan = input("Pilih menu (0-8): ").strip()
     
@@ -250,11 +239,11 @@ while True:
             
     elif pilihan == "0":
         simpan_ke_csv(root)
-        print("\n========================================================")
+        print(f"{pink}" + "="*50 + f"{reset}")
         print("Program ditutup.")
         print("Terimakasih telah menggunakan Direktori Folder Laptop!")
-        print("========================================================")
+        print(f"{pink}" + "="*50 + f"{reset}")
         break 
     
     else:
-        print("\n[Sistem] Pilihan salah! Harap ketik angka 1, 2, 3, 4, 5, 6, 7, 8, atau 0.")
+        print("\n[Sistem] Pilihan salah! Harap ketik angka 0-8!")
