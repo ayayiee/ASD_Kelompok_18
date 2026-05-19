@@ -250,7 +250,11 @@ while True:
             
     elif pilihan == "0":
         simpan_ke_csv(root)
+        print("\n========================================================")
         print("Program ditutup.")
+        print("Terimakasih telah menggunakan Direktori Folder Laptop!")
+        print("========================================================")
+        break 
     
     else:
         print("\n[Sistem] Pilihan salah! Harap ketik angka 1, 2, 3, 4, 5, 6, 7, 8, atau 0.")
