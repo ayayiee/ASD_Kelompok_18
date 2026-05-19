@@ -1,3 +1,7 @@
 Nama,Tipe,Parent
-foto,File,Laptop_saya
-Tugas,Folder,Laptop_saya
+Laptop_saya,Folder,Root
+kerja,Folder,Laptop_saya
+file1,File,kerja
+kerjaan,File,Laptop_saya
+oji,Folder,Laptop_saya
+lio,File,Laptop_saya
