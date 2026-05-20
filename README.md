@@ -20,7 +20,7 @@ Aplikasi ini menerapkan dua kombinasi struktur data terintegrasi untuk menyimula
 - **Manajemen Berkas Lengkap (CRUD):** Pengguna dapat membuat baru, melihat isi dengan filter tipe, mengubah nama (*rename*), hingga menghapus folder/file secara aman.
 - **Navigasi Pintar (*Loop Input Validation*):** Dilengkapi proteksi salah ketik saat membuka folder. Sistem akan terus mengunci pengguna untuk mencoba lagi hingga ejaan benar atau dibatalkan secara sengaja.
 - **Pencarian & Pengurutan Instan:** Memiliki fitur pencarian berkas global secara rekursif dari tingkat *Root* dan pengurutan isi direktori secara alfabetis (A-Z).
-- **Sistem Pembatalan Universal:** Pengguna dapat membatalkan aksi manipulasi data kapan saja hanya dengan mengetikkan karakter `'x'` atau mengosongkan input, disertai transisi otomatis menggunakan `time.sleep()`.
+- **Sistem Pembatalan Universal:** Pengguna dapat membatalkan aksi manipulasi data kapan saja hanya dengan mengosongkan input, disertai transisi otomatis menggunakan `time.sleep()`.
 - **Penyimpanan Permanen (*Auto-Save*):** Setiap perubahan data direktori otomatis disinkronisasikan dan disimpan ke dalam file eksternal `data_folder.csv`.
 
 ## 🛠️ Prasyarat & Instalasi
@@ -45,5 +45,5 @@ ASD_Kelompok_18/
 └── README.md                    # Dokumentasi proyek
 
 ## 🔒 Catatan Penggunaan
-Fitur Pembatalan: Saat Anda berada di menu Tambah (2), Ubah Nama (3), atau Hapus (4), Anda cukup mengetikkan huruf x (case-insensitive) atau langsung menekan Enter pada kolom input untuk kembali ke menu utama secara aman tanpa merusak struktur data yang ada.
-Navigasi Mundur: Menu Kembali (8) hanya dapat digunakan jika Anda telah masuk ke dalam minimal satu sub-folder (Stack tidak kosong). Jika Anda berada di direktori tertinggi (Root), sistem akan memberikan notifikasi batasan navigasi.
+- Fitur Pembatalan: Saat Anda berada di menu Tambah (2), Ubah Nama (3), atau Hapus (4), Anda cukup langsung menekan Enter pada kolom input untuk kembali ke menu utama secara aman tanpa merusak struktur data yang ada.
+- Navigasi Mundur: Menu Kembali (8) hanya dapat digunakan jika Anda telah masuk ke dalam minimal satu sub-folder (Stack tidak kosong). Jika Anda berada di direktori tertinggi (Root), sistem akan memberikan notifikasi batasan navigasi.
