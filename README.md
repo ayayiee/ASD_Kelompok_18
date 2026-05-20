@@ -32,13 +32,15 @@ Aplikasi ini sepenuhnya menggunakan *built-in libraries* bawaan Python (seperti 
    cd ASD_Kelompok_18
 
 2. Jalankan aplikasi langsung
-   python Direktori-Folder-Laptop.py
+   ```python Direktori-Folder-Laptop.py
 
 ## 📂 Struktur Direktori
 VirtualFileSystem/
 │
 ├── data_folder.csv              # Database utama penyimpanan Tree (format CSV)
+
 ├── Direktori-Folder-Laptop      # File eksekusi keseluruhan
+
 └── README.md                    # Dokumentasi proyek
 
 ## 🔒 Catatan Penggunaan
