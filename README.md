@@ -1,11 +1,11 @@
-# 📂 Virtual File System - CLI Directory Management
+# 📂 Direktori Folder Laptop - CLI Directory Management
 
 ![Python Version](https://img.shields.io/badge/python-3.x-blue.svg)
 ![CLI](https://img.shields.io/badge/Interface-CLI-lightgrey.svg)
 
-Proyek ini adalah aplikasi Sistem Manajemen Direktori Berkas (*Virtual File System*) berbasis *Command Line Interface* (CLI) yang dibangun menggunakan bahasa pemrograman Python. Proyek ini disusun untuk memenuhi Tugas Proyek Akhir mata kuliah **Algoritma & Struktur Data** pada program studi D4 Teknologi Rekayasa Perangkat Lunak, Sekolah Vokasi IPB University.
+Proyek ini adalah aplikasi Sistem Manajemen Direktori Berkas berbasis *Command Line Interface* (CLI) yang dibangun menggunakan bahasa pemrograman Python. Proyek ini disusun untuk memenuhi Tugas Proyek Akhir mata kuliah **Algoritma & Struktur Data** pada program studi D4 Teknologi Rekayasa Perangkat Lunak, Sekolah Vokasi IPB University.
 
-## 👥 Tim Pengembang (Kelompok 3)
+## 👥 Tim Pengembang (Kelompok 18)
 - **Mouzia Syawalova** (Fokus: Core System, Struktur Data General Tree & Fungsi CRUD)
 - **Alyaa Marrdlatillah** (Fokus: Processing System, Algoritma Rekursif Searching, Sorting A-Z & Database File Handling)
 - **Gabriella Anggi** (Fokus: Project Manager, CLI UI/UX, Stack Riwayat Navigasi & Input Validation Protection)
@@ -28,7 +28,7 @@ Aplikasi ini sepenuhnya menggunakan *built-in libraries* bawaan Python (seperti 
 
 1. Clone *repository* ini:
    ```bash
-   git clone https://github.com/gabriellaanggi/VirtualFileSystem.git
+   git clone https://github.com/ayayiee/ASD_Kelompok_18.git
    cd ASD_Kelompok_18
 
 2. Jalankan aplikasi langsung
