@@ -189,16 +189,16 @@ while True:
         
     elif pilihan == "2":
         print("\n--- TAMBAH BARU ---")
-        print("Ketik 'x' atau kosongkan untuk membatalkan.")
+        print("Kosongkan untuk membatalkan.")
         
         nama_baru = input("Masukkan nama: ").strip()
-        if nama_baru.lower() == 'x' or not nama_baru:
+        if not nama_baru:
             print("\n>>> Penambahan item dibatalkan. Kembali ke menu utama...")
             time.sleep(3)
             continue
         
         tipe_input = input("Tipe (1. Folder, 2. File): ").strip()
-        if tipe_input.lower() == 'x' or not tipe_input:
+        if not tipe_input:
             print("\n>>> Penambahan item dibatalkan. Kembali ke menu utama...")
             time.sleep(3)
             continue
@@ -222,10 +222,10 @@ while True:
             ikon = "📁" if item.tipe == "Folder" else "📄"
             print(f"  {ikon} {item.folder} ({item.tipe})")
         print("-" * 50)
-        print("(Ketik 'x' atau kosongkan untuk membatalkan)")
+        print("(Kosongkan untuk membatalkan)")
         
         nama_lama = input("Masukkan nama yang ingin diubah: ")
-        if nama_lama.lower() == 'x' or not nama_lama:
+        if not nama_lama:
             print("\n>>> Perubahan nama dibat2alkan. Kembali ke menu utama...")
             time.sleep(3)
             continue
@@ -241,7 +241,7 @@ while True:
             continue
         
         nama_baru = input("Masukkan nama baru: ")
-        if nama_baru.lower() == 'x' or not nama_baru:
+        if not nama_baru:
             print("\n>>> Proses penghapusan dibatalkan. Kembali ke menu utama...")
             time.sleep(3)
             continue
@@ -262,11 +262,11 @@ while True:
             ikon = "📁" if item.tipe == "Folder" else "📄"
             print(f"  {ikon} {item.folder} ({item.tipe})")
         print("=" * 50)
-        print("Ketik 'x' atau kosongkan untuk membatalkan")
+        print("Kosongkan untuk membatalkan")
         
         nama_hapus = input("Masukkan nama yang ingin dihapus: ").strip()
         
-        if nama_hapus.lower() == 'x' or not nama_hapus:
+        if not nama_hapus:
             print("\n>>> Proses penghapusan dibatalkan. Kembali ke menu utama...")
             time.sleep(3)
             continue
@@ -291,9 +291,10 @@ while True:
             print("="*50)
             
         while True:
+            print("Kosongkan untuk membatalkan")
             target = input("Masukkan nama folder untuk dibuka: ").strip()
             
-            if target.lower == 'x' or not target:
+            if not target:
                 print("\n>>> Proses membuka folder dibatalkan. Kembali ke menu utama...")
                 time.sleep(2)
                 break
@@ -328,7 +329,8 @@ while True:
 
     elif pilihan == "7":
         print("\n--- CARI FILE/FOLDER ---")
-        cari_file_folder(root, input("Cari nama: ")).strip()
+        print("Kosongkan untuk membatalkan")
+        cari_file_folder(root, input("Cari nama: "))
         input("\nTekan Enter untuk kembali ke menu...")
 
     elif pilihan == "8":
