@@ -22,6 +22,7 @@ class Node:
         for item in self.isi:
             if item.folder.lower() == node_baru.folder.lower() and item.tipe == node_baru.tipe:
                 print(f"{node_baru.tipe} '{node_baru.folder}' sudah ada di lokasi ini!")
+                time.sleep(3)
                 return False
 
         node_baru.posisi = self 
@@ -54,6 +55,7 @@ class Node:
                 for cek in self.isi:
                     if cek.folder.lower() == nama_baru.lower() and cek.tipe == item.tipe:
                         print(f"Nama '{nama_baru}' sudah digunakan oleh {item.tipe} lain!")
+                        time.sleep(2)
                         return False
                         
                 item.folder = nama_baru
@@ -136,10 +138,10 @@ def _cari_rekursif(node, nama_cari, hasil, path_sekarang=""):
 # === TUGAS ANGGOTA 3: GABRIELLA ANGGI ===
 root = Node("Laptop_saya", "Folder")
 
-print(f"{pink}" + "="*50 + f"{reset}")
+print(f"{pink}" + "="*70 + f"{reset}")
 print("Selamat Datang di Direktori Folder Laptop Saya!")
 print("Sistem siap mengelola file dan folder Anda.")
-print(f"{pink}" + "="*50 + f"{reset}")
+print(f"{pink}" + "="*70 + f"{reset}")
 input("Tekan Enter untuk masuk ke program...")
 
 try:
@@ -164,9 +166,9 @@ stack_riwayat = []
 
 while True:
     path_saatini = " / ".join([n.folder for n in stack_riwayat] + [node_sekarang.folder])
-    print("\n" + "="*50)
+    print("\n" + "="*70)
     print(f"📂 LOKASI SAAT INI: {path_saatini}") 
-    print("="*50)
+    print("="*70)
     print("1. Lihat isi folder")
     print("2. Tambah folder/file baru")
     print("3. Ubah nama")
@@ -176,15 +178,18 @@ while True:
     print("7. Cari nama")
     print("8. Kembali")
     print("0. Keluar dari program")
-    print("="*50)
+    print("="*70)
     
     pilihan = input("Pilih menu (0-8): ").strip()
     
     if pilihan == "1":
         f = input("Tampilkan hanya (1: Folder, 2: File, 3: Semua): ")
-        tipe_f = "Folder" if f=="1" else "File" if f=="2" else None
-        print("\n--- HASIL FILTER ---")
-        node_sekarang.lihat_isi(tipe_f)
+        if f in ["1", "2", "3"]:
+            tipe_f = "Folder" if f=="1" else "File" if f=="2" else None
+            print("\n--- HASIL FILTER ---")
+            node_sekarang.lihat_isi(tipe_f)
+        else: 
+            print("\nPilihan tidak tersedia!")
         input("\nTekan Enter untuk kembali ke menu...")
         
     elif pilihan == "2":
@@ -221,12 +226,12 @@ while True:
         for item in node_sekarang.isi:
             ikon = "📁" if item.tipe == "Folder" else "📄"
             print(f"  {ikon} {item.folder} ({item.tipe})")
-        print("-" * 50)
+        print("-" * 70)
         print("(Kosongkan untuk membatalkan)")
         
         nama_lama = input("Masukkan nama yang ingin diubah: ")
         if not nama_lama:
-            print("\n>>> Perubahan nama dibat2alkan. Kembali ke menu utama...")
+            print("\n>>> Perubahan nama dibatalkan. Kembali ke menu utama...")
             time.sleep(3)
             continue
         
@@ -261,7 +266,7 @@ while True:
         for item in node_sekarang.isi:
             ikon = "📁" if item.tipe == "Folder" else "📄"
             print(f"  {ikon} {item.folder} ({item.tipe})")
-        print("=" * 50)
+        print("=" * 70)
         print("Kosongkan untuk membatalkan")
         
         nama_hapus = input("Masukkan nama yang ingin dihapus: ").strip()
@@ -288,10 +293,10 @@ while True:
             print("\nFolder yang tersedia : ")
             for folder_aktif in daftar_folder:
                 print(f"📁 {folder_aktif.folder}")
-            print("="*50)
+            print("="*70)
             
         while True:
-            print("Kosongkan untuk membatalkan")
+            print("\nKosongkan untuk membatalkan")
             target = input("Masukkan nama folder untuk dibuka: ").strip()
             
             if not target:
@@ -315,7 +320,7 @@ while True:
                 break 
             elif target.lower() != 'x':
                 print("Folder tidak ditemukan. Silakan periksa ejaan dan coba lagi.")
-                print("="*50)
+                print("="*70)
 
     elif pilihan == "6":
         print("\n--- URUTKAN A-Z ---")
@@ -335,13 +340,17 @@ while True:
 
     elif pilihan == "8":
         if stack_riwayat:
+            print("\n>>> Kembali ke folder sebelumnya...")
+            time.sleep(2)
             node_sekarang = stack_riwayat.pop()
         else:
-            print(" Anda sudah berada di lokasi paling awal (Root).")
+            print("\nAnda sudah berada di lokasi paling awal (Root).")
+            print("Kembali ke menu utama dalam 2 detik ... ")
+            time.sleep(2)
             
     elif pilihan == "0":
         simpan_ke_csv(root)
-        print(f"{pink}" + "="*70 + f"{reset}")
+        print(f"\n{pink}" + "="*70 + f"{reset}")
         print("Program ditutup.")
         print("Terimakasih telah menggunakan Direktori Folder Laptop!")
         print(f"{pink}" + "="*70 + f"{reset}")

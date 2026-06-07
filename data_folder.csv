@@ -2,6 +2,8 @@ Nama,Tipe,Parent
 Laptop_saya,Folder,Root
 kerja,Folder,Laptop_saya
 file1,File,kerja
+asd,File,kerja
+ipb,Folder,kerja
 kerjaan,File,Laptop_saya
-oji,Folder,Laptop_saya
-lio,File,Laptop_saya
+work,Folder,Laptop_saya
+kampus,File,Laptop_saya
