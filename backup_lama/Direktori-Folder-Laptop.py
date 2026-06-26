@@ -76,7 +76,7 @@ class Node:
         print(f"Gagal, {nama_dihapus} tidak ditemukan.")
         return False
         
-# === TUGAS ANGGOTA 2: ALYAA MARRDLATILLAH ===
+# === TUGAS ANGGOTA 2: ALYAA MARRDLATIL LAH ===
 # ================================================
 # Menyimpan struktur folder ke CSV
 # ================================================
