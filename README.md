@@ -36,14 +36,23 @@ Aplikasi ini sepenuhnya menggunakan *built-in libraries* bawaan Python (seperti 
    python Direktori-Folder-Laptop.py
 
 ## 📂 Struktur Direktori
+
+Berikut adalah struktur repositori proyek yang telah dikembangkan secara modular:
+
 ASD_Kelompok_18/
-
-├── data_folder.csv              # Database utama penyimpanan Tree (format CSV)
-
-├── Direktori-Folder-Laptop      # File eksekusi keseluruhan
-
-└── README.md                    # Dokumentasi proyek
+├── backup_lama/
+│   └── Direktori-Folder-Laptop.py   # Arsip kode versi tunggal (sebelum refactor)
+├── data_folder.csv                  # Database utama penyimpanan Tree (format CSV)
+├── file_handler.py                  # Modul untuk operasi simpan/muat data CSV
+├── main.py                          # File eksekusi utama (Main Loop & Antarmuka CLI)
+├── node.py                          # Definisi struktur data Node (General Tree & CRUD)
+├── README.md                        # Dokumentasi proyek
+├── searching.py                     # Modul algoritma pencarian rekursif
+└── sorting.py                       # Modul algoritma pengurutan berkas (A-Z)
 
 ## 🔒 Catatan Penggunaan
 - Fitur Pembatalan: Saat Anda berada di menu Tambah (2), Ubah Nama (3), atau Hapus (4), Anda cukup langsung menekan Enter pada kolom input untuk kembali ke menu utama secara aman tanpa merusak struktur data yang ada.
 - Navigasi Mundur: Menu Kembali (8) hanya dapat digunakan jika Anda telah masuk ke dalam minimal satu sub-folder (Stack tidak kosong). Jika Anda berada di direktori tertinggi (Root), sistem akan memberikan notifikasi batasan navigasi.
+
+* **Laporan Akhir PBL (Google Drive):** [https://drive.google.com/file/d/1R-t_XLyav3z1BGprEvB-RVsNcZuke4EW/view?usp=sharing]
+* **Video Penjelasan Kode :** [(https://youtu.be/cVpk8s3tO1s?si=axFWvZUvTT-uo8Gi)]
